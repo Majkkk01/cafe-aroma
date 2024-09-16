@@ -1,7 +1,7 @@
 <template>
   <nav>
     <div class="logo">
-      <a href="#hero" @click.prevent="scrollToSection('hero')">Café Aroma</a>
+      <a href="#hero" @click.prevent="scrollAndCloseMenu('hero')">Café Aroma</a>
     </div>
 
     <!-- Hamburger menu pro malé obrazovky -->
@@ -10,10 +10,10 @@
     </div>
 
     <ul :class="{ 'nav-active': isActive }">
-      <li><a href="#hero" @click.prevent="scrollToSection('hero')" class="nav-item">Home</a></li>
-      <li><a href="#menu" @click.prevent="scrollToSection('menu')" class="nav-item">Menu</a></li>
-      <li><a href="#about" @click.prevent="scrollToSection('about')" class="nav-item">About</a></li>
-      <li><a href="#contact" @click.prevent="scrollToSection('contact')" class="nav-item">Contact</a></li>
+      <li><a href="#hero" @click.prevent="scrollAndCloseMenu('hero')" class="nav-item">Home</a></li>
+      <li><a href="#menu" @click.prevent="scrollAndCloseMenu('menu')" class="nav-item">Menu</a></li>
+      <li><a href="#about" @click.prevent="scrollAndCloseMenu('about')" class="nav-item">About</a></li>
+      <li><a href="#contact" @click.prevent="scrollAndCloseMenu('contact')" class="nav-item">Contact</a></li>
     </ul>
 
     <div id="social-nav">
@@ -35,13 +35,18 @@ function toggleMenu() {
   isActive.value = !isActive.value;
 }
 
-function scrollToSection(id) {
+// Funkce pro scrollování a zavření menu
+function scrollAndCloseMenu(id) {
   const section = document.getElementById(id);
   if (section) {
     window.scrollTo({
       top: section.offsetTop - 50, // 50px offset kvůli pevné navigaci
       behavior: 'smooth', // Plynulé scrollování
     });
+  }
+  // Zavřít menu po kliknutí na odkaz
+  if (window.innerWidth <= 768) {
+    isActive.value = false;
   }
 }
 </script>
